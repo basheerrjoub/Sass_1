@@ -1,0 +1,150 @@
+//Importing modules
+@use 'sass:math';
+
+@mixin removeSpaces {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    
+}
+
+//Color Map
+$colors:(
+    "red1": #ff0000,
+    "red2": #ff2d2d,
+    "red3": #ff6c6c,
+    "red4": #ff8e8e,
+);
+
+
+$random-colors:(
+
+    "1": rgb(math.random(255),math.random(255),math.random(255)),
+    "2": rgb(math.random(255),math.random(255),math.random(255)),
+    "3": rgb(math.random(255),math.random(255),math.random(255)),
+    "4": rgb(math.random(255),math.random(255),math.random(255)),
+
+);
+
+
+
+//variables
+$fontColor: #FFFFFF;;
+$backgroundColor: tomato;
+$fontFamily: monospace;
+$base-border: 2px solid red;
+$box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0), 5px 5px 15px 5px rgba(0,0,0,0.38);
+$card-width: 300px;
+
+
+
+//Card
+
+.card {
+    display: block;
+    width: $card-width;
+    height: 200px;
+    margin: auto;
+    border: $base-border;
+    background-color: $backgroundColor;
+    border-radius: 10px;
+    box-shadow: $box-shadow;
+
+    h1{
+        text-shadow:  -5px 5px 0px #00e6e6, -10px 10px 0px #01cccc, -15px 15px 0px #00bdbd;;
+        text-align: center;
+        color: $fontColor;
+        font-family: $fontFamily;
+        font-size: 50px;
+    }
+    p{
+        text-shadow: 2px 2px 2px rgba(206,89,55,0);
+        text-align: center;
+        text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18, 0 0 75px #49ff18;  
+        font-family: $fontFamily;
+        color: $fontColor;
+        font-size: 20px;
+    }
+
+}
+
+
+.card{
+    position:relative;
+    padding: 0;
+    .card-div {
+        position:absolute;
+        height: 100%;
+        background: linear-gradient(45deg, tomato, red);
+        width: math.div($card-width, 4);
+        z-index: 100;
+        
+    }
+    #div1{
+        left: 0;
+        border-top-left-radius: inherit;
+        border-bottom-left-radius: inherit;
+    }
+    #div2{
+        left: math.div($card-width, 4);
+    }
+    #div3{
+        left: 2*math.div($card-width, 4);
+    }
+    #div4{
+        left: 3*math.div($card-width, 4);
+        border-top-right-radius: inherit;
+        border-bottom-right-radius: inherit;
+    }
+
+}
+
+@each  $key, $value in $random-colors {
+
+    #div#{$key}{
+        background: $value;
+
+        &:hover {
+            background: linear-gradient(90deg, rgb(math.random(255),math.random(255),math.random(255)), blue);
+        }
+    }
+
+}
+
+//Functions
+@function print($string) {
+
+    @return " " + $string;
+
+}
+
+.third-card {
+    background: darken($backgroundColor, 10);
+    h2{
+        @include removeSpaces();
+        margin: auto;
+        text-align: center;
+        position: relative;
+        top: 50px;
+        $font-random-size: math.random(100);
+        @if ($font-random-size > 50 or $font-random-size < 20){
+            font-size: 40px;
+        }@else{
+            font-size: $font-random-size + px;
+        }
+        
+    }
+    h2::after{
+        $name1: "Basheer";
+        content: print($name1);
+    }
+    &:hover {
+        // background: lighten($backgroundColor, 5);
+        background: linear-gradient(45deg, map-get($colors, "red1"), map-get($colors, "red2"), map-get($colors, "red3"), map-get($colors, "red4"))
+        
+           
+    }
+}
+@debug math.random(100)px; 
+
+
